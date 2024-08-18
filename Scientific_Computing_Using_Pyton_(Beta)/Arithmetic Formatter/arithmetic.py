@@ -4,7 +4,7 @@ def arithmetic_arranger(problems, show_answers=False):
     line = []
     answer = []
 
-    if len(problems)>5:
+    if len(problems) > 5:
         return 'Error: we do not accept more than 5 problems'
 
     for problem in problems:
@@ -13,27 +13,26 @@ def arithmetic_arranger(problems, show_answers=False):
         operator = char[1]
         arg2 = char[2]
 
-        if operator not in ['+','-']:
-            return "Error: operator must be either '+' or '-'"
+        if operator not in ['+', '-']:
+            return "Error: Operator must be either '+' or '-'"
         if not arg1.isdigit() or not arg2.isdigit():
             return 'Error: Numbers must only contain digits'
+        if len(arg1) > 4 or len(arg2) > 4:
+            return 'Error: Numbers cannot be more than four digits'
 
-        max_length = max(len(arg1),len(arg2)) + 2
-
-        if max_length>4:
-            return 'Error: Number must not contain more than 4 digits'
+        max_length = max(len(arg1), len(arg2)) + 2
 
         char_top.append(arg1.rjust(max_length))
-        char_bottom.append(operator + " " + arg2.rjust(max_length-2))
+        char_bottom.append(operator + arg2.rjust(max_length - 1))
         line.append("-" * max_length)
 
         if show_answers:
             if operator == '+':
-                result = str(int(arg1)+int(arg2))
+                result = str(int(arg1) + int(arg2))
             else:
-                result = str(int(arg1)-int(arg2))
+                result = str(int(arg1) - int(arg2))
             answer.append(result.rjust(max_length))
-    
+
     arrangement = ""
     if char_top:
         arrangement += "    ".join(char_top) + "\n"
@@ -43,7 +42,7 @@ def arithmetic_arranger(problems, show_answers=False):
         arrangement += "    ".join(line) + "\n"
     if show_answers and answer:
         arrangement += "    ".join(answer)
-    
-    return arrangement
+
+    return arrangement.rstrip()
 
 print(arithmetic_arranger(["32 - 698", "1 - 3801", "45 + 43", "123 + 49", "988 + 40"], True))
